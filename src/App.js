@@ -38,7 +38,7 @@ const App = () => {
             <Route path="/" exact component={Home} />
             <Route path="/profile" component={Profile} />
             <Route path="/external-api" component={ExternalApi} />
-            
+
           </Switch>
         </Container>
         <Footer />
