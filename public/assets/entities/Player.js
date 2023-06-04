@@ -1,38 +1,51 @@
-// entities/Player.js
 export class Player {
-  constructor(scene, x, y) {
+  constructor(scene, x, y, spriteKey) {
     this.scene = scene;
-    this.sprite = scene.physics.add.sprite(x, y, 'bluechar');
+    this.sprite = scene.physics.add.sprite(x, y, spriteKey);
     this.sprite.body.setSize(this.sprite.width * 0.4, this.sprite.height * 0.4);
     this.sprite.setCollideWorldBounds(true);
 
-    this.health = 100; // or whatever starting health you want
-    // add more properties as needed
-  }
+    // Customize player settings and animations here
 
-  // A method for moving the player around
+    this.health = 100;
+    this.experience = 0;
+
+    // Add more properties as needed
+  }
   move(cursors) {
-    // similar logic to your current update() function goes here
     if (cursors.A.isDown) {
-        this.sprite.setVelocityX(-200);
-        this.sprite.anims.play('bluechar-left', true);
+      this.sprite.setVelocityX(-200);
+      this.sprite.anims.play(`${this.sprite.texture.key}-left`, true);
     } else if (cursors.D.isDown) {
-        this.sprite.setVelocityX(200);
-        this.sprite.anims.play('bluechar-right', true);
+      this.sprite.setVelocityX(200);
+      this.sprite.anims.play(`${this.sprite.texture.key}-right`, true);
     } else {
-        this.sprite.setVelocityX(0);
+      this.sprite.setVelocityX(0);
     }
-  
+
     // Vertical movement
     if (cursors.W.isDown) {
-        this.sprite.setVelocityY(-200);
-        this.sprite.anims.play('bluechar-up', true);
+      this.sprite.setVelocityY(-200);
+      this.sprite.anims.play(`${this.sprite.texture.key}-up`, true);
     } else if (cursors.S.isDown) {
-        this.sprite.setVelocityY(200);
-        this.sprite.anims.play('bluechar-down', true);
+      this.sprite.setVelocityY(200);
+      this.sprite.anims.play(`${this.sprite.texture.key}-down`, true);
     } else {
-        this.sprite.setVelocityY(0);
+      this.sprite.setVelocityY(0);
     }
+  }
+
+  takeDamage(amount) {
+    this.health -= amount;
+    if (this.health <= 0) {
+      this.health = 0;
+      // Handle player death
+    }
+  }
+
+  gainExperience(amount) {
+    this.experience += amount;
+    // Check if player leveled up or reached certain milestones
   }
 
   // Other player methods...

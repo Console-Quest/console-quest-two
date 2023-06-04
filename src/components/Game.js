@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import Phaser from 'phaser';
 import { LoadScene } from '../scenes/LoadScene'; // Import your LoadScene
+import { MonsterScene } from '../scenes/MonsterScene';
 
 const Game = () => {
   useEffect(() => {
@@ -17,7 +18,7 @@ const Game = () => {
           debug: true,
         },
       },
-      scene: [LoadScene],
+      scene: [LoadScene, MonsterScene],
     };
 
     const game = new Phaser.Game(config);

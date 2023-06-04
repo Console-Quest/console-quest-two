@@ -1,14 +1,12 @@
 /* global Phaser */
 
-
 export class Monster {
-  constructor(scene, x, y, type) {
+  constructor(scene, x, y, type, health, speed) {
     this.scene = scene;
     this.sprite = scene.physics.add.sprite(x, y, type);
     this.sprite.setCollideWorldBounds(true);
-    this.speed = 50;
-
-    this.health = 50; // or whatever starting health you want
+    this.speed = speed;
+    this.health = health;
     // add more properties as needed
   }
 
@@ -34,6 +32,15 @@ export class Monster {
         this.sprite.play(`${this.sprite.texture.key}-up`, true);
       }
     }
+  }
+  update() {
+    // Check for collision with the player
+    this.scene.physics.world.collide(this.sprite, this.scene.player.sprite, this.handleCollision, null, this);
+  }
+
+  handleCollision(monster, player) {
+    // Call the player's takeDamage method
+    this.scene.player.takeDamage(10); // Adjust the amount of damage as needed
   }
   // Other monster methods...
 }
