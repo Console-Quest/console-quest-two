@@ -21,14 +21,13 @@ const Game = () => {
       scene: [LoadScene, MonsterScene],
     };
 
+    
     const game = new Phaser.Game(config);
-
     return () => {
       game.destroy();
     };
   }, []);
-
-  return <div id="game" />;
+  
 };
 
 export default Game;
